@@ -1,0 +1,190 @@
+/* ========================================
+   Custom Hover & Animation Effects
+   ======================================== */
+
+/* --- 导航栏菜单项悬停 --- */
+#nav .menus_items .menus_item a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+#nav .menus_items .menus_item a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--btn-bg, #6C63FF);
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+#nav .menus_items .menus_item a:hover::after {
+  width: 100%;
+  left: 0;
+}
+
+#nav .menus_items .menus_item a:hover {
+  color: var(--btn-bg, #6C63FF) !important;
+}
+
+/* --- 导航栏毛玻璃效果 --- */
+#nav.fixed.nav-visible {
+  backdrop-filter: saturate(180%) blur(16px);
+  -webkit-backdrop-filter: saturate(180%) blur(16px);
+  background: rgba(255, 255, 255, 0.72) !important;
+}
+
+[data-theme="dark"] #nav.fixed.nav-visible {
+  background: rgba(18, 18, 18, 0.78) !important;
+}
+
+/* --- 首页文章卡片悬停 --- */
+#recent-posts > .recent-post-item {
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#recent-posts > .recent-post-item:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 36px rgba(108, 99, 255, 0.15);
+}
+
+/* --- 侧边栏卡片悬停 --- */
+#aside-content .card-widget {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#aside-content .card-widget:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(108, 99, 255, 0.12);
+}
+
+/* --- 标签云悬停 --- */
+#aside-content .card-tag-cloud a {
+  transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+#aside-content .card-tag-cloud a:hover {
+  background: var(--btn-bg, #6C63FF);
+  color: #fff !important;
+  transform: scale(1.1);
+}
+
+/* --- 分页按钮悬停 --- */
+#pagination .page-number,
+#pagination .extend {
+  transition: background 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+#pagination .page-number:hover,
+#pagination .extend:hover {
+  background: var(--btn-bg, #6C63FF);
+  color: #fff;
+  transform: scale(1.08);
+}
+
+/* --- 右下角按钮悬停 --- */
+#rightside > div > button,
+#rightside > div > a {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#rightside > div > button:hover,
+#rightside > div > a:hover {
+  transform: scale(1.15) rotate(-5deg);
+  box-shadow: 0 4px 16px rgba(108, 99, 255, 0.3);
+}
+
+/* --- 文章内链接悬停 --- */
+#article-container a:not(.btn):not(.fancybox) {
+  background-image: linear-gradient(var(--btn-bg, #6C63FF), var(--btn-bg, #6C63FF));
+  background-size: 0 2px;
+  background-position: left bottom;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s ease;
+}
+
+#article-container a:not(.btn):not(.fancybox):hover {
+  background-size: 100% 2px;
+}
+
+/* --- 页面入场淡入上移 --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#recent-posts > .recent-post-item {
+  animation: fadeInUp 0.6s ease both;
+}
+
+#recent-posts > .recent-post-item:nth-child(1) { animation-delay: 0.05s; }
+#recent-posts > .recent-post-item:nth-child(2) { animation-delay: 0.1s; }
+#recent-posts > .recent-post-item:nth-child(3) { animation-delay: 0.15s; }
+#recent-posts > .recent-post-item:nth-child(4) { animation-delay: 0.2s; }
+#recent-posts > .recent-post-item:nth-child(5) { animation-delay: 0.25s; }
+#recent-posts > .recent-post-item:nth-child(6) { animation-delay: 0.3s; }
+#recent-posts > .recent-post-item:nth-child(7) { animation-delay: 0.35s; }
+#recent-posts > .recent-post-item:nth-child(8) { animation-delay: 0.4s; }
+#recent-posts > .recent-post-item:nth-child(9) { animation-delay: 0.45s; }
+#recent-posts > .recent-post-item:nth-child(10) { animation-delay: 0.5s; }
+
+/* --- 侧边栏卡片依次入场 --- */
+#aside-content .card-widget {
+  animation: fadeInUp 0.5s ease both;
+}
+
+#aside-content .card-widget:nth-child(1) { animation-delay: 0.1s; }
+#aside-content .card-widget:nth-child(2) { animation-delay: 0.2s; }
+#aside-content .card-widget:nth-child(3) { animation-delay: 0.3s; }
+#aside-content .card-widget:nth-child(4) { animation-delay: 0.4s; }
+#aside-content .card-widget:nth-child(5) { animation-delay: 0.5s; }
+#aside-content .card-widget:nth-child(6) { animation-delay: 0.6s; }
+
+/* --- 滚动条美化 --- */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--btn-bg, #6C63FF);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- 归档页工具栏 --- */
+.archive-sort-btn {
+  font-size: 13px;
+  padding: 3px 10px;
+  border: 1px solid var(--font-color, #ccc);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--font-color);
+  cursor: pointer;
+  transition: all 0.25s ease;
+  opacity: 0.7;
+}
+
+.archive-sort-btn:hover {
+  opacity: 1;
+}
+
+.archive-sort-btn.active {
+  background: var(--btn-bg, #6C63FF);
+  color: #fff;
+  border-color: var(--btn-bg, #6C63FF);
+  opacity: 1;
+}
