@@ -11,17 +11,14 @@
 
   function createBlobs() {
     var arr = [];
-    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-    var color = isDark ? 'rgba(150,150,200,0.2)' : 'rgba(255,255,255,0.35)';
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 10; i++) {
       var size = Math.max(w, h);
       arr.push({
         x: Math.random() * w,
         y: Math.random() * h,
-        radius: size * (0.15 + Math.random() * 0.15),
-        dx: (Math.random() - 0.5) * 0.4,
-        dy: (Math.random() - 0.5) * 0.4,
-        color: color,
+        radius: size * (0.06 + Math.random() * 0.08),
+        dx: (Math.random() - 0.5) * 2.5,
+        dy: (Math.random() - 0.5) * 2.5,
       });
     }
     return arr;
@@ -36,14 +33,13 @@
     ctx.clearRect(0, 0, w, h);
 
     if (!blobs) return;
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
     for (var i = 0; i < blobs.length; i++) {
       var b = blobs[i];
-      var grad = ctx.createRadialGradient(b.x, b.y, 0, b.x, b.y, b.radius);
-      grad.addColorStop(0, b.color);
-      grad.addColorStop(1, 'rgba(255,255,255,0)');
-      ctx.fillStyle = grad;
+      // Solid white circle like the test that worked, but softer
       ctx.beginPath();
       ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+      ctx.fillStyle = isDark ? 'rgba(150,150,200,0.2)' : 'rgba(255,255,255,0.45)';
       ctx.fill();
 
       b.x += b.dx;
