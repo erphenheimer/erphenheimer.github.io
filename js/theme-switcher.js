@@ -181,6 +181,7 @@
     // Base layer
     var layer = document.getElementById('pe-base-layer');
     if (layer) layer.style.background = isDark ? s.baseBgDark : s.baseBg;
+    if (window.__canvasBgUpdate) window.__canvasBgUpdate();
 
     // Cards semi-transparent
     r.style.setProperty('--card-bg', isDark ? s.cardBgDark : s.cardBg);
@@ -207,12 +208,12 @@
       // ===== Base layer =====
       '#pe-base-layer {',
       '  position: fixed; top: 0; left: 0; width: 100%; height: 100%;',
-      '  z-index: -998; pointer-events: none;',
+      '  z-index: -2; pointer-events: none;',
       '}',
 
       // ===== Switcher UI =====
       '#theme-switcher {',
-      '  position: fixed; bottom: 120px; right: 16px; z-index: 9998;',
+      '  position: fixed; bottom: 220px; right: 16px; z-index: 9998;',
       '}',
       '#theme-switcher-btn {',
       '  width: 40px; height: 40px; border-radius: 50%; border: none;',

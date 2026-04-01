@@ -2,6 +2,11 @@
    Custom Hover & Animation Effects
    ======================================== */
 
+/* --- Canvas 背景层：html 透明以显示底层 canvas --- */
+html {
+  background: transparent !important;
+}
+
 /* --- 导航栏菜单项悬停 --- */
 #nav .menus_items .menus_item a {
   position: relative;
