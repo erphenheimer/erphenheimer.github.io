@@ -114,7 +114,7 @@
     var dragging = false, offX = 0, offY = 0;
     var longPressTimer = null;
     var isLongPress = false;
-    var LONG_PRESS_MS = 150;
+    var LONG_PRESS_MS = 100;
 
     var isHidden = false, hiddenSide = null;
     var EDGE_THRESHOLD = 30;

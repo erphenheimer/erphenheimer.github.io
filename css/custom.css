@@ -2,6 +2,28 @@
    Custom Hover & Animation Effects
    ======================================== */
 
+/* --- 自定义光标：主题色跟随光圈 --- */
+#pe-cursor-ring {
+  position: fixed;
+  width: 30px;
+  height: 30px;
+  border: 2px solid var(--pe-accent, #6C63FF);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, border-color 0.3s ease, opacity 0.2s ease;
+  opacity: 0.6;
+}
+#pe-cursor-ring.pe-cursor-hover {
+  width: 50px;
+  height: 50px;
+  opacity: 0.4;
+}
+@media (pointer: coarse) {
+  #pe-cursor-ring { display: none; }
+}
+
 /* --- Canvas 背景层：html 透明以显示底层 canvas --- */
 html {
   background: transparent !important;
