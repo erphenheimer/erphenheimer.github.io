@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题 | Erphenheimer's blog</title><meta name="author" content="erphenheimer"><meta name="copyright" content="erphenheimer"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本文转载自微信公众号「史剑笔谈」  悲报，一周前我看这个issue里open的数量应该还是4打头的四位数来着，没想到一周后就变成9开头了。 3.22龙虾更新以后，网上出现了非常多的channel无法连接的情况，以及一些其他的对前期版本的兼容问题。 在我之前一篇文章中，我详细说了说作为小白尝试龙虾的惨痛经历，现在想来，一方面我佩服自己的耐心，另一方面，无数个使用中的问题暴露，也让我意识到龙虾并不是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题">
+<meta property="og:url" content="https://erphenheimer.github.io/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="Erphenheimer&#39;s blog">
+<meta property="og:description" content="本文转载自微信公众号「史剑笔谈」  悲报，一周前我看这个issue里open的数量应该还是4打头的四位数来着，没想到一周后就变成9开头了。 3.22龙虾更新以后，网上出现了非常多的channel无法连接的情况，以及一些其他的对前期版本的兼容问题。 在我之前一篇文章中，我详细说了说作为小白尝试龙虾的惨痛经历，现在想来，一方面我佩服自己的耐心，另一方面，无数个使用中的问题暴露，也让我意识到龙虾并不是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://erphenheimer.github.io/img/486.jpg">
+<meta property="article:published_time" content="2026-03-25T04:00:00.000Z">
+<meta property="article:modified_time" content="2026-04-01T12:36:27.390Z">
+<meta property="article:author" content="erphenheimer">
+<meta property="article:tag" content="AI">
+<meta property="article:tag" content="技术">
+<meta property="article:tag" content="随笔">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://erphenheimer.github.io/img/486.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "小白聊聊龙虾\"3.22事变\"与AI的边际问题",
+  "url": "https://erphenheimer.github.io/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/",
+  "image": "https://erphenheimer.github.io/img/486.jpg",
+  "datePublished": "2026-03-25T04:00:00.000Z",
+  "dateModified": "2026-04-01T12:36:27.390Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "erphenheimer",
+      "url": "https://erphenheimer.github.io"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://erphenheimer.github.io/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.3"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!true && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.12.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '小白聊聊龙虾"3.22事变"与AI的边际问题',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'post'
+}</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css"><link rel="stylesheet" href="/css/custom.css"><meta name="generator" content="Hexo 8.1.1"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+btf.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+
+</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/486.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg fixed" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">Erphenheimer's blog</span></a><a class="nav-page-title" href="/"><span class="site-name">小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 文章</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/shuoshuo/"><i class="fa-fw fas fa-comment-dots"></i><span> 说说</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="post-info"><h1 class="post-title">小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2026-03-25T04:00:00.000Z" title="发表于 2026-03-25 12:00:00">2026-03-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2026-04-01T12:36:27.390Z" title="更新于 2026-04-01 20:36:27">2026-04-01</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><blockquote>
+<p>本文转载自微信公众号「史剑笔谈」</p>
+</blockquote>
+<p>悲报，一周前我看这个issue里open的数量应该还是4打头的四位数来着，没想到一周后就变成9开头了。</p>
+<p>3.22龙虾更新以后，网上出现了非常多的channel无法连接的情况，以及一些其他的对前期版本的兼容问题。</p>
+<p>在我之前一篇文章中，我详细说了说作为小白尝试龙虾的惨痛经历，现在想来，一方面我佩服自己的耐心，另一方面，无数个使用中的问题暴露，也让我意识到龙虾并不是一个&quot;完成品&quot;。</p>
+<p>如果让我说龙虾更像什么，我感觉它像是一只幼崽，但是被强行安装上了不属于它的肢体和传感器。</p>
+<p>果然，后面在论坛上看到，龙虾居然是vibe coding的产物，我一下感觉拨云见日，释怀地嗝儿了。</p>
+<p>哦，原来不全是我的问题啊。</p>
+<p>然后我就跑去GitHub上，打开龙虾的页面，issue的后面赫然跟着5k+，open后面也是一个四位数。</p>
+<p>我的脑海中顿时开始播放关羽之歌。</p>
+<p>从那以后，对身边的人，我只推荐他们试试龙虾，但不建议他们真的把这玩意投入工作中。当作工作流的一个agent组件，就是目前龙虾的最好结果了。</p>
+<p>在接触龙虾之前，我对AI的能力其实有很多质疑。这里面我觉得破绽最明显的就是AI视频。也是AI视频的缺陷，让我意识到，AGI也许走不了生成式的这条路了。</p>
+<p>我是一个入坑特摄区没几年的人，但是饭和史都吃了不少。讲道理，没想到特摄片一个现实中用上各种手段的东西，居然也能搞AI。</p>
+<p>众所周知，特摄剧很难拍好，一方面剧情要合理，另一方面打戏作为核心卖点之一，考虑动作设计的合理性，更要兼顾剧情设定。</p>
+<p>动作设计，在物理世界里，是要符合物理法则和生活经验需要的。</p>
+<p>这里我原文复制一下，我在seedance 2.0出来以后写的朋友圈。</p>
+<p>传统的AI视频能被一眼识破，最表面的原因就是在一些细节的地方违反了物理规则和行为范式，和人们的生活经验相悖。</p>
+<p>现在的AI生成视频仍然是一种拟合的思路，而不是推理，因为如果真的按照物理世界先建模，然后再根据分镜需求，确定镜头的移动方式来拍摄和生成画面的话，固然是更符合物理逻辑的，但所需的计算量是非常大的，应该是大于单纯的学习然后拟合。</p>
+<p>以&quot;归来的曼巴OUT曼&quot;这个视频为例，AI视频里的很多动作，仔细去观察的话会发现其实不像是人的出招，尤其是进攻性动作，更像是橡皮管动画。</p>
+<p>看特摄的人应该对此有体会，就是一个动作从预备到发力再到完成是有一条动力链的，这才让人看着觉得打戏是一个很自然的事情。而在在这个视频中2：30这个位置的横向空中转体到2：32这个位置，曼巴展开了他的双腿。</p>
+<p>按照我印象里见到的打戏尤其是奥特曼的打戏，落地时身体紧缩到一个较小的半径内同时保持一个较快的角速度，能够最有效卸力来减小身体所受到的冲击伤害。</p>
+<p>而曼巴此时张开双腿，根据角动量守恒定律，他的轴向角速度降低，后续也确实是屁股单点着地，这样的冲击绝对是最大的，普通人尤其是骨密度低不晒太阳的人这么来一下，盆骨没事骶骨和尾骨也得吃一壶了。</p>
+<p>所以这种反人类的动作和落地方式直接暴露了这个视频是AI生成的。</p>
+<p>这是显性的，那么不那么显性的呢？现在的AI如果在物理规律和物理世界逻辑的理解上不够的话，那么只能去靠不断拟合学习来做到尽可能接近现实，同时降低所需的算力。</p>
+<p>一个显而易见的事实是，过去的AI视频生成依然是通过学习和拟合方式来实现接近现实的，而并非对真实物理世界的推理演绎。</p>
+<p>所以辨析AI视频最好的方式，有两种，一种是在最细微的地方去找不符合现实世界经验规律和物理定律的地方，另一种就是直接根据视频要素建模运算，只要拟合程度低于一个阈值就可以判定是AI视频。</p>
+<p>写这个的时候我还在养病，所以可能有很多事实上的错误。但这一个月来看了越来越多的AI视频，我相信我的直觉是对的。</p>
+<p>AI视频最大的破绽，就在于细节的处理。</p>
+<p>仔细去找找，AI关于流体的处理，很快就会发现，和通过物理建模模拟出来的流体不同，AI视频中的流体，放弃了非常多的湍流的细节，只保留最主要的湍流。</p>
+<p>对于那些流体的边缘，以水为例，取而代之的是非常多让人感觉违和的气泡和泡沫，以模糊的方式来逃避这一部分。</p>
+<p>与其说逃避，倒不如说它在学习的时候，它能提取的特征是有边界的，它只能提取到：有水，水是流体，浪的边界是白的，那就搞成白的就好了。</p>
+<p>试想一下，换做你是AI，假设你立刻掌握了流体力学的全部知识，你是选择用拟合学习材料的方式草草做一个浪花呢，还是用流体力学的模型去模拟每一个浪花呢？</p>
+<p>这个答案很明显了。但你是人类，你真的能理解流体力学，生成式的AI它不一定能理解流体力学适用在哪里。</p>
+<p>其实包括很多AI视频在内，不管是人类皮肤、人物动线、微表情等等，“一眼AI&quot;的基础恰恰就在于，AI生成的东西相对现实是严重失真的，只是和照片的失真不同，AI的&quot;失真&quot;不是&quot;没法确定某个位置的具体特征”，而是&quot;直接抹除无法模拟的细节&quot;。</p>
+<p>在写朋友圈的当时我没意识到这个问题，随着看到AI内容越来越多以后，我也是被训练出来如何&quot;感知&quot;与&quot;识别&quot;一个视频是不是AI了。</p>
+<p>这里把后半段也放上来好了。</p>
+<p>这个新的模型我暂时还没来得及测试，但就TIM的视频来看，这里的违和感还是很强，比如一些地方完全没有微表情变化就很容易被识破了。</p>
+<p>人对于违和感的判定很多是潜意识触发的，所以不一定能立刻用准确的语言表述出来。</p>
+<p>人对于经验和规律的记忆力同样有极限，这样下去，虚拟和现实的边界会因为人脑的承载力问题越来越模糊。</p>
+<p>现在我们常见的AI视频判定方式还局限在分镜，光影，人物动作或者表情，甚至于潜意识的直感，这是很危险的。</p>
+<p>我们必须要尽快建立一个判定AI视频的，机械的可复制可推广的方法，否则，模糊地带随着互联网高速扩散，会摧毁整个社会的信任体系。</p>
+<p>而这些，需要我们对自己所处的世界，有更多的了解，更细微的了解，包括但不限于肌肉的活动方式和微表情之间的关联，等等。</p>
+<p>我们需要让越来越多的事情变得显性，否则就会被蒙在鼓里。</p>
+<p>奇怪，我们让AI生成越来越逼真的视频是为了什么呢？</p>
+<p>如果是为了替代现实中的演绎、拍摄乃至于自然现象的记录，那么，可以宣告几乎不可能实现了。</p>
+<p>不是做不到，而是性价比太低。我为了去纠正你浪花中边缘部分忽略的流体力学细节，我要输入相当多的prompt甚至经过多轮修正来让AI理解，又或者编写一个巨大的但是细致入微的物理知识库让AI去学习。</p>
+<p>这个做法，需要大量的人，既对物理有理解，又得理解AI是怎么去执行&quot;理解&quot;这个步骤的。</p>
+<p>这还没算tokens的消耗呢！</p>
+<p>比起这个，我为什么不去租个服务器，让它跑仿真模型来得更真实呢，至少丢失的细节比AI生成的少得多。</p>
+<p>所以，性价比输了，除非有强力意志要求，否则基本没有什么人会那么有闲去招一大批人琢磨这个东西。</p>
+<p>copy真实的世界，生成式是个好办法，但不是最好的办法。</p>
+<p>人眼还是太NB了，如果不是人眼这么强大的观察能力，我恐怕真的识别不出来这么多有违和感的细节。</p>
+<p>当然，作为一个小白，我对于AI的认识也很浅，如有错误欢迎批评指正，我会认真学习。</p>
+<p>文章到此为止，喜欢的话点个关注吧~</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://erphenheimer.github.io">erphenheimer</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://erphenheimer.github.io/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/">https://erphenheimer.github.io/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://erphenheimer.github.io" target="_blank">Erphenheimer's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/AI/">AI</a><a class="post-meta__tags" href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a><a class="post-meta__tags" href="/tags/%E6%8A%80%E6%9C%AF/">技术</a></div><div class="post-share"><div class="social-share" data-image="/img/486.jpg" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2026/03/24/%E5%BC%A0%E9%9B%AA%E5%B3%B0%E8%B5%B0%E4%BA%86%E5%92%8C%E4%BB%96%E4%B8%80%E8%B5%B7%E8%B5%B0%E7%9A%84%E6%98%AF%E5%AF%B9%E8%A1%8C%E4%B8%9A%E7%9A%84%E5%85%B1%E8%AF%86/" title="张雪峰走了，和他一起走的，是对行业的共识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">张雪峰走了，和他一起走的，是对行业的共识</div></div><div class="info-2"><div class="info-item-1"> 本文转载自微信公众号「史剑笔谈」  张雪峰对国人的影响是潜移默化的。 今天他离开了。而这个影响，也会随着这种潜移默化，影响我们每一个人。 我对张雪峰的印象，停留在那些很碎片化的信息上。比起他的鸡汤，更令我关注的，是他对于教育和行业之间的联系的理解。 直到今天，我才理解，为什么张雪峰很重要。因为在各行各业搞信息壁垒的社会，选择专业约等于选择一个行业去了解，甚至于深耕。 而大部分高考生，对行业、专业和学科之间的差异是没有理解的。这一点，我上了三年大学才略有体会。 今天，相当规模的大学生没有从事自己本专业的工作，其实就是没有进入自己选择的那个行业。真的去尝试一门行业，不行再换，可青春有多少年能供你换行业试错呢？ 而张雪峰的咨询，提供的其实就是对于行业、专业和学科之间差异的理解，进而去提供学科和行业的选择方向。其实就是职业规划和生涯规划。 从传播上看，我能看到张雪峰的视频、语录，大多都是碎片化的，每一个碎片可能是一个人，但是话里话外，可能是一个甚至几个行业。而这些碎片的集合，就是当今中国社会的各行各业的情况。 张雪峰最有价值的地方，在于他利用互联网，通过教育咨询的形式，为全国的学子和家...</div></div></div></a></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><a class="pagination-related" href="/2026/03/20/%E5%85%BB%E6%AD%BB%E5%9B%9B%E5%8F%AA%E9%BE%99%E8%99%BE%E7%9A%84%E5%B0%8F%E7%99%BD%E6%9C%89%E6%84%9F/" title="养死四只龙虾的小白有感"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-20</div><div class="info-item-2">养死四只龙虾的小白有感</div></div><div class="info-2"><div class="info-item-1"> 本文转载自微信公众号「史剑笔谈」  2026年3月20日晚23时30分，我的第四只龙虾，也是第一只成功投入工作的龙虾，在受到来自某M字开头模型的&lt;think&gt;标签影响进入退行性神经疾病后，因抢救无效，进入晚期。 为了保证电脑安全和tokens资源不再因为疾病而无意义消耗，我，作为其主人兼主治医师，宣布，对该龙虾执行安乐死，完成卸载程序。 说真的，作为一个没有任何计科基础的AI小白，靠着龙虾自己的vibe coding，能够在两周之内没有专业人士帮助的情况下让它跑通至少一个工作流，我已经很满足了。 我算是一个灾星，经我之手的项目和任务，一定会在一开始遭遇非常严重的失误。但这次搞龙虾，应该是唯一一次，完全我自己来主导探索，然后在我自己都数不清的试错后解决问题的一次。 我现在已经记不得前三次卸载龙虾的原因了。之前的确出现了一些恶性bug，我自己用vibe coding缝缝补补，以及采用官方的更新，这些问题还是解决了。 但这一次，按照G姓模型阅读我全部的日志给出的说法，基于D姓一系开发出的模型，因为输出的&lt;think&gt;标签使得memory功能无法识别，进而强制触...</div></div></div></a><a class="pagination-related" href="/2026/03/24/%E5%BC%A0%E9%9B%AA%E5%B3%B0%E8%B5%B0%E4%BA%86%E5%92%8C%E4%BB%96%E4%B8%80%E8%B5%B7%E8%B5%B0%E7%9A%84%E6%98%AF%E5%AF%B9%E8%A1%8C%E4%B8%9A%E7%9A%84%E5%85%B1%E8%AF%86/" title="张雪峰走了，和他一起走的，是对行业的共识"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-center"><div class="info-1"><div class="info-item-1"><i class="far fa-calendar-alt fa-fw"></i> 2026-03-24</div><div class="info-item-2">张雪峰走了，和他一起走的，是对行业的共识</div></div><div class="info-2"><div class="info-item-1"> 本文转载自微信公众号「史剑笔谈」  张雪峰对国人的影响是潜移默化的。 今天他离开了。而这个影响，也会随着这种潜移默化，影响我们每一个人。 我对张雪峰的印象，停留在那些很碎片化的信息上。比起他的鸡汤，更令我关注的，是他对于教育和行业之间的联系的理解。 直到今天，我才理解，为什么张雪峰很重要。因为在各行各业搞信息壁垒的社会，选择专业约等于选择一个行业去了解，甚至于深耕。 而大部分高考生，对行业、专业和学科之间的差异是没有理解的。这一点，我上了三年大学才略有体会。 今天，相当规模的大学生没有从事自己本专业的工作，其实就是没有进入自己选择的那个行业。真的去尝试一门行业，不行再换，可青春有多少年能供你换行业试错呢？ 而张雪峰的咨询，提供的其实就是对于行业、专业和学科之间差异的理解，进而去提供学科和行业的选择方向。其实就是职业规划和生涯规划。 从传播上看，我能看到张雪峰的视频、语录，大多都是碎片化的，每一个碎片可能是一个人，但是话里话外，可能是一个甚至几个行业。而这些碎片的集合，就是当今中国社会的各行各业的情况。 张雪峰最有价值的地方，在于他利用互联网，通过教育咨询的形式，为全国的学子和家...</div></div></div></a></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/486.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">erphenheimer</div><div class="author-info-description"></div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">5</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/erphenheimer"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">欢迎来到二本海默的博客，博客仍在建设中，欢迎收藏网页关注后续文章哦~</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/25/%E5%B0%8F%E7%99%BD%E8%81%8A%E8%81%8A%E9%BE%99%E8%99%BE3-22%E4%BA%8B%E5%8F%98%E4%B8%8EAI%E7%9A%84%E8%BE%B9%E9%99%85%E9%97%AE%E9%A2%98/" title="小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题">小白聊聊龙虾&quot;3.22事变&quot;与AI的边际问题</a><time datetime="2026-03-25T04:00:00.000Z" title="发表于 2026-03-25 12:00:00">2026-03-25</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/24/%E5%BC%A0%E9%9B%AA%E5%B3%B0%E8%B5%B0%E4%BA%86%E5%92%8C%E4%BB%96%E4%B8%80%E8%B5%B7%E8%B5%B0%E7%9A%84%E6%98%AF%E5%AF%B9%E8%A1%8C%E4%B8%9A%E7%9A%84%E5%85%B1%E8%AF%86/" title="张雪峰走了，和他一起走的，是对行业的共识">张雪峰走了，和他一起走的，是对行业的共识</a><time datetime="2026-03-24T04:00:00.000Z" title="发表于 2026-03-24 12:00:00">2026-03-24</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/03/20/%E5%85%BB%E6%AD%BB%E5%9B%9B%E5%8F%AA%E9%BE%99%E8%99%BE%E7%9A%84%E5%B0%8F%E7%99%BD%E6%9C%89%E6%84%9F/" title="养死四只龙虾的小白有感">养死四只龙虾的小白有感</a><time datetime="2026-03-20T15:30:00.000Z" title="发表于 2026-03-20 23:30:00">2026-03-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2026/01/22/%E6%88%91%E4%BB%AC%E5%88%B0%E5%BA%95%E5%9C%A8%E5%92%8C%E8%B0%81%E7%AB%9E%E9%80%9F/" title="我们到底在和谁竞速"><img src="/img/runwithai.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="我们到底在和谁竞速"/></a><div class="content"><a class="title" href="/2026/01/22/%E6%88%91%E4%BB%AC%E5%88%B0%E5%BA%95%E5%9C%A8%E5%92%8C%E8%B0%81%E7%AB%9E%E9%80%9F/" title="我们到底在和谁竞速">我们到底在和谁竞速</a><time datetime="2026-01-22T13:11:24.000Z" title="发表于 2026-01-22 21:11:24">2026-01-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2025/12/31/2025/12/31-%E7%A7%8D%E5%AD%90%E2%80%942025%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="种子—2025年终总结"><img src="/img/zhongzi.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="种子—2025年终总结"/></a><div class="content"><a class="title" href="/2025/12/31/2025/12/31-%E7%A7%8D%E5%AD%90%E2%80%942025%E5%B9%B4%E7%BB%88%E6%80%BB%E7%BB%93/" title="种子—2025年终总结">种子—2025年终总结</a><time datetime="2025-12-31T07:48:04.000Z" title="发表于 2025-12-31 15:48:04">2025-12-31</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By erphenheimer</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.3"></script><script src="/js/main.js?v=5.5.3"></script><div class="js-pjax"><script>(async () => {
+  const showKatex = () => {
+    document.querySelectorAll('#article-container .katex').forEach(el => el.classList.add('katex-show'))
+  }
+
+  if (!window.katex_js_css) {
+    window.katex_js_css = true
+    await btf.getCSS('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/katex.min.css')
+    if (false) {
+      await btf.getScript('https://cdn.jsdelivr.net/npm/katex@0.16.27/dist/contrib/copy-tex.min.js')
+    }
+  }
+
+  showKatex()
+})()</script></div><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><meting-js
+  server="netease"
+  type="playlist"
+  id="17812063531"
+  fixed="true"
+  mini="true"
+  autoplay="false"
+  theme="#448aff"
+  loop="all"
+  order="random"
+  preload="auto"
+  volume="0.5"
+  list-folded="true"
+  class="no-destroy">
+</meting-js>
+<script src="/js/player-enhance.js"></script><script src="/js/archive-filter.js"></script><script src="/js/theme-switcher.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/metingjs/dist/Meting.min.js"></script><script>(() => {
+  const destroyAplayer = () => {
+    if (window.aplayers) {
+      for (let i = 0; i < window.aplayers.length; i++) {
+        if (!window.aplayers[i].options.fixed) {
+          window.aplayers[i].destroy()
+        }
+      }
+    }
+  }
+
+  const runMetingJS = () => {
+    typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+  }
+
+  btf.addGlobalFn('pjaxSend', destroyAplayer, 'destroyAplayer')
+  btf.addGlobalFn('pjaxComplete', loadMeting, 'runMetingJS')
+})()</script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js" defer="defer"></script><script>document.addEventListener('DOMContentLoaded', () => {
+  const pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+  window.pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: pjaxSelectors,
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+  })
+
+  const triggerPjaxFn = (val) => {
+    if (!val) return
+    Object.values(val).forEach(fn => {
+      try {
+        fn()
+      } catch (err) {
+        console.debug('Pjax callback failed:', err)
+      }
+    })
+  }
+
+  document.addEventListener('pjax:send', () => {
+    // removeEventListener
+    btf.removeGlobalFnEvent('pjaxSendOnce')
+    btf.removeGlobalFnEvent('themeChange')
+
+    // reset readmode
+    const $bodyClassList = document.body.classList
+    if ($bodyClassList.contains('read-mode')) $bodyClassList.remove('read-mode')
+
+    triggerPjaxFn(window.globalFn.pjaxSend)
+  })
+
+  document.addEventListener('pjax:complete', () => {
+    btf.removeGlobalFnEvent('pjaxCompleteOnce')
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+      const newScript = document.createElement('script')
+      const content = item.text || item.textContent || item.innerHTML || ""
+      Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+      newScript.appendChild(document.createTextNode(content))
+      item.parentNode.replaceChild(newScript, item)
+    })
+
+    triggerPjaxFn(window.globalFn.pjaxComplete)
+  })
+
+  document.addEventListener('pjax:error', e => {
+    if (e.request.status === 404) {
+      false
+        ? pjax.loadUrl('/404.html')
+        : window.location.href = e.request.responseURL
+    }
+  })
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
