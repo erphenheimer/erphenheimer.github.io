@@ -3653,7 +3653,7 @@ figure.highlight pre .javascript .function {
     bottom: 30px;
     z-index: 100;
     max-width: 380px;
-    max-height: calc(100% - 60px);
+    max-height: 60vh;
     width: calc(100% - 80px);
     -webkit-transition: none;
     -moz-transition: none;
@@ -3695,7 +3695,7 @@ figure.highlight pre .javascript .function {
 }
 @media screen and (max-width: 900px) {
   #aside-content #card-toc .toc-content {
-    max-height: calc(100vh - 140px);
+    max-height: 50vh;
   }
 }
 #aside-content #card-toc .toc-content > * {
@@ -3708,11 +3708,6 @@ figure.highlight pre .javascript .function {
 }
 #aside-content #card-toc .toc-content:not(.is-expand) .toc-child {
   display: none;
-}
-@media screen and (max-width: 900px) {
-  #aside-content #card-toc .toc-content:not(.is-expand) .toc-child {
-    display: block !important;
-  }
 }
 #aside-content #card-toc .toc-content:not(.is-expand) .toc-item.active .toc-child {
   display: block;
