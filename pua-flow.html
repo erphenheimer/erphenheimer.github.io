@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多层社会工程操控流程</title>
+<style>
+:root {
+  --bg:#0b0b14; --bg2:#12121f; --bg3:#1a1a2d;
+  --border:#252540; --border-hi:#3a3a5a;
+  --text:#d0d0e0; --text2:#8888aa; --text3:#555570;
+  --cyan:#53d8fb; --orange:#f5a623; --red:#e94560;
+  --purple:#a855f7; --green:#22c55e; --crimson:#ef4444;
+  --yellow:#fbbf24;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+
+.header{text-align:center;padding:48px 20px 12px;}
+.header h1{font-size:24px;color:var(--text);font-weight:800;letter-spacing:2px;}
+.header .sub{color:var(--text3);font-size:13px;margin-top:8px;}
+
+/* ===== PIPELINE ===== */
+.pipeline{max-width:880px;margin:0 auto;padding:30px 20px 20px;position:relative;}
+.pipeline::before{content:'';position:absolute;left:50%;top:30px;bottom:20px;width:2px;background:linear-gradient(to bottom,var(--cyan),var(--orange),var(--red),var(--purple),var(--green),var(--crimson));opacity:.25;transform:translateX(-1px);}
+
+.stage{position:relative;margin-bottom:8px;}
+.stage-label{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px 0;cursor:pointer;position:relative;z-index:2;}
+.stage-dot{width:14px;height:14px;border-radius:50%;border:2.5px solid;background:var(--bg);flex-shrink:0;transition:transform .2s;}
+.stage.open .stage-dot{transform:scale(1.3);}
+.stage-name{font-size:14px;font-weight:700;letter-spacing:1px;}
+.stage-eng{font-size:11px;color:var(--text3);margin-left:4px;}
+
+.stage-body{max-height:0;overflow:hidden;transition:max-height .4s ease;}
+.stage.open .stage-body{max-height:2000px;}
+
+.steps{display:flex;flex-direction:column;gap:10px;padding:8px 0 18px;}
+
+/* ===== STEP CARD ===== */
+.step{background:var(--bg2);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s;}
+.step:hover{border-color:var(--border-hi);}
+.step-top{display:flex;align-items:flex-start;gap:12px;padding:16px;cursor:pointer;}
+.step-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.step-main{flex:1;min-width:0;}
+.step-num{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;}
+.step-title{font-size:14px;font-weight:600;color:var(--text);line-height:1.4;}
+.step-brief{font-size:12px;color:var(--text2);margin-top:4px;line-height:1.6;}
+.step-chevron{color:var(--text3);font-size:11px;padding-top:4px;transition:transform .2s;flex-shrink:0;}
+.step.open .step-chevron{transform:rotate(180deg);}
+
+.step-detail{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.step.open .step-detail{max-height:600px;}
+.step-detail-inner{padding:0 16px 16px;border-top:1px solid var(--border);}
+
+.quote{background:var(--bg);border-left:3px solid var(--text3);padding:10px 14px;margin:12px 0;font-size:12px;color:var(--text2);line-height:1.7;font-style:italic;border-radius:0 6px 6px 0;}
+
+.mechanism{font-size:12px;color:var(--text);line-height:1.8;margin-bottom:10px;}
+.mechanism b{font-weight:600;}
+
+.tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.tag{display:inline-block;border:1px solid;border-radius:4px;padding:2px 8px;font-size:10px;font-weight:600;}
+
+/* ===== FLOW MINI DIAGRAM ===== */
+.flow-mini{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin:10px 0;padding:10px;background:var(--bg);border-radius:8px;}
+.fm-step{border:1px solid var(--border);border-radius:6px;padding:5px 10px;font-size:11px;text-align:center;}
+.fm-arrow{color:var(--text3);font-size:14px;}
+
+/* ===== KILL CHAIN ===== */
+.killchain{max-width:880px;margin:0 auto;padding:10px 20px 30px;}
+.killchain h2{font-size:16px;color:var(--text);margin-bottom:6px;}
+.killchain .kc-sub{font-size:12px;color:var(--text3);margin-bottom:16px;}
+.kc-bar{display:flex;border-radius:10px;overflow:hidden;border:1px solid var(--border);}
+.kc-cell{flex:1;padding:14px 8px;text-align:center;border-right:1px solid var(--border);transition:flex .3s;}
+.kc-cell:last-child{border-right:none;}
+.kc-cell:hover{flex:1.5;}
+.kc-cell .kc-label{font-size:11px;font-weight:700;letter-spacing:.5px;}
+.kc-cell .kc-ref{font-size:9px;margin-top:4px;opacity:.6;}
+
+/* ===== REFERENCES ===== */
+.refs{max-width:880px;margin:0 auto;padding:20px 20px 60px;}
+.refs h2{font-size:16px;color:var(--text);margin-bottom:16px;}
+.ref-list{display:flex;flex-direction:column;gap:10px;}
+.ref-item{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:14px 16px;transition:border-color .2s;}
+.ref-item:hover{border-color:var(--cyan);}
+.ref-item .ref-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;}
+.ref-item h3{font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+.ref-item .ref-authors{font-size:11px;color:var(--text2);margin-top:2px;}
+.ref-item .ref-note{font-size:11px;color:var(--text3);margin-top:6px;line-height:1.5;}
+.ref-item a{color:var(--cyan);font-size:11px;text-decoration:none;margin-top:6px;display:inline-block;}
+.ref-item a:hover{text-decoration:underline;}
+
+@media(max-width:600px){
+  .kc-bar{flex-direction:column;}
+  .kc-cell{border-right:none;border-bottom:1px solid var(--border);}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>多层社会工程操控流程</h1>
+  <div class="sub">6 阶段 · 12 步骤 · 完整攻击链与心理学机制拆解</div>
+</div>
+
+<div class="pipeline" id="pipeline"></div>
+
+<div class="killchain" id="killchain"></div>
+
+<div class="refs" id="refs"></div>
+
+<script>
+const C={cyan:'#53d8fb',orange:'#f5a623',red:'#e94560',purple:'#a855f7',green:'#22c55e',crimson:'#ef4444'};
+
+const DATA=[
+{
+  stage:'侦察', eng:'Reconnaissance', color:C.cyan,
+  steps:[
+    {icon:'🔍',title:'初始接触 · 信息收集',
+     brief:'通过看似随意的交谈完成性格画像和需求评估。',
+     quotes:['先简单交谈，做一个分析和了解'],
+     mechanism:'社会工程攻击的标准第一步：<b>被动信息收集</b>。在不引起警觉的前提下，通过开放式提问获取对方的价值观、社交圈、情感状态等关键信息。类似渗透测试中的 OSINT（开源情报收集）阶段。',
+     flow:['随意交谈','提取关键信息','建立性格画像','评估可利用点'],
+     tags:[{t:'Social Engineering',c:C.cyan},{t:'Cold Reading',c:C.cyan},{t:'OSINT',c:C.cyan}]},
+    {icon:'🎯',title:'脆弱点定位 · 攻击面分析',
+     brief:'识别情感缺口、认知盲区或未被满足的社交需求，选定介入点。',
+     quotes:['找一个对方可能脆弱的点介入'],
+     mechanism:'定位目标的<b>心理攻击面</b>：可能是近期的情感创伤、长期未被满足的认同需求、或对某个领域的认知盲区。选择脆弱点而非强项介入，是因为防御最薄弱处的投入产出比最高。',
+     flow:['情感缺口','认知盲区','社交需求','选定最优介入点'],
+     tags:[{t:'Vulnerability Scanning',c:C.cyan},{t:'Attack Surface',c:C.cyan}]}
+  ]
+},
+{
+  stage:'信任构建', eng:'Trust Building', color:C.orange,
+  steps:[
+    {icon:'💛',title:'真心投入期 · 互惠锚定',
+     brief:'以真实的时间和精力投入换取信任，触发互惠心理。',
+     quotes:['时间和精力为代价，先用真心降低对方的防线','最开始是真的在帮'],
+     mechanism:'利用 Cialdini 的<b>互惠原则 (Reciprocity)</b>：人在接受帮助后会产生回报义务感。关键在于"最开始是真的在帮"——真实的付出比虚假的付出更能建立深层信任，因为对方的直觉系统（Kahneman 的 System 1）会检测到真诚信号。这一阶段同时触发<b>喜好原则 (Liking)</b>：我们更容易被帮助过自己的人说服。',
+     flow:['真实帮助','对方产生感激','互惠义务感建立','防御阈值降低'],
+     tags:[{t:'Reciprocity',c:C.orange},{t:'Liking Principle',c:C.orange},{t:'Foot-in-the-door',c:C.orange}]},
+    {icon:'🔧',title:'认知框架植入 · 价值观渐变',
+     brief:'在帮助过程中逐步植入有利于自己的判断框架。',
+     quotes:['用一些价值观铺垫的方式来影响对方的选择，类似于大模型微调'],
+     mechanism:'通过<b>框架效应 (Framing Effect)</b>改变信息的呈现方式，而非信息本身。例如：同样是"换工作"，框架为"追求成长"vs"逃避现状"会导致完全不同的决策倾向。同时利用<b>承诺与一致性原则</b>：一旦对方接受了某个价值判断，后续会倾向于做出与之一致的选择。',
+     flow:['提供真实建议','嵌入价值框架','对方接受框架','后续决策被框架约束'],
+     tags:[{t:'Framing Effect',c:C.orange},{t:'Commitment & Consistency',c:C.orange},{t:'Attitude Inoculation',c:C.orange}]}
+  ]
+},
+{
+  stage:'第一层操控', eng:'Layer-1 Exploitation', color:C.red,
+  steps:[
+    {icon:'⚔️',title:'真话与引导的混合投递',
+     brief:'将真实有价值的信息与有利于自己的引导信息混合，逐步调整比例。',
+     quotes:['先告诉对方真的为对方好的事情，然后让对方信任自己，最后再说出对自己更有利的引导信息'],
+     mechanism:'经典的<b>先予后取 (Bait-and-switch)</b>策略。初期真实信息占比高（约 90%），建立"这个人说的都对"的认知锚点。随后逐步提高引导信息比例。由于<b>承诺与一致性</b>效应，对方已经接受了前面的信息，会倾向于继续接受后续内容以维持认知一致性。这也利用了<b>光环效应 (Halo Effect)</b>：前期的正确判断为后续所有判断赋予了可信度光环。',
+     flow:[{t:'90% 真实信息',s:'good'},{t:'信任锚点建立',s:''},{t:'比例逐步反转',s:'warn'},{t:'引导信息被接受',s:'danger'}],
+     tags:[{t:'Bait-and-switch',c:C.red},{t:'Halo Effect',c:C.red},{t:'Information Asymmetry',c:C.red}]},
+    {icon:'🔀',title:'引导路径控制',
+     brief:'通过选择性信息提供，控制对方的决策路径。',
+     quotes:['引导'],
+     mechanism:'不直接告诉对方"你应该怎么做"，而是通过<b>选择性信息呈现</b>让对方"自己得出"操控者想要的结论。这比直接指令更有效，因为人们对自己"独立得出"的结论有更强的认同感和执行意愿——这是<b>自主性错觉 (Illusion of Autonomy)</b>。',
+     flow:['筛选信息','呈现有利子集','对方"独立"推理','得出预设结论'],
+     tags:[{t:'Selective Disclosure',c:C.red},{t:'Illusion of Autonomy',c:C.red},{t:'Nudge Theory',c:C.red}]}
+  ]
+},
+{
+  stage:'第二层嵌套', eng:'Layer-2 Meta-deception', color:C.purple,
+  steps:[
+    {icon:'🧅',title:'战略性自我暴露 · 虚假透明度',
+     brief:'主动承认"我可能在坑你"，但不提供分析细节，让对方在信息不足下自行判断。',
+     quotes:['告诉对方自己可能在坑对方，但不做分析，让对方自己去判断，实际上是对自己有利的二次加权'],
+     mechanism:'<b>战略性自我暴露 (Strategic Self-disclosure)</b>：主动承认部分真相来增强整体可信度。关键操作是"不做分析"——只给结论不给推理过程，让对方在<b>信息不对称</b>的条件下判断。由于前期信任已建立，对方的判断大概率是"他这么坦诚，应该不会真的坑我"。这实际上是<b>确认偏误 (Confirmation Bias)</b> 的利用：对方会选择性地寻找支持"他是好人"的证据。',
+     flow:[{t:'承认"我可能在坑你"',s:'warn'},{t:'不提供分析',s:''},{t:'对方自行判断',s:''},{t:'信任反而加深',s:'danger'}],
+     tags:[{t:'Strategic Self-disclosure',c:C.purple},{t:'Illusory Transparency',c:C.purple},{t:'Confirmation Bias',c:C.purple}]},
+    {icon:'🛡️',title:'筛选与淘汰机制',
+     brief:'将能识破操控的人定义为"高端对手"，将失败转化为对自身能力的确认。',
+     quotes:['两步GAN都蒙不过去的，那基本上也没辙','能选择离开的人，能看透两层，那也不是什么简单的人','我只打高端局','结果发现我很菜'],
+     mechanism:'双重心理防御机制：<b>自我服务偏差 (Self-serving Bias)</b>——成功归因于自己的技术，失败归因于对方段位高；以及<b>自嘲式免疫 (Self-deprecating Immunization)</b>——"我很菜"的自嘲预先消解了他人可能的批评，同时暗示"虽然菜但对手更强"，实际上是变相的自我抬高。',
+     flow:['操控失败','重定义为"对方太强"','自嘲"我很菜"','自尊心完好无损'],
+     tags:[{t:'Self-serving Bias',c:C.purple},{t:'Self-deprecation as Shield',c:C.purple}]}
+  ]
+},
+{
+  stage:'元操控层', eng:'Meta-manipulation', color:C.green,
+  steps:[
+    {icon:'♻️',title:'坦白即操控 · 递归信任',
+     brief:'将整套操控流程的分析本身变成新一层操控工具。',
+     quotes:['而我这个话，你也可以理解为第三套GAN，不过和之前不一样，原理已经清楚了'],
+     mechanism:'<b>元认知操控 (Metacognitive Manipulation)</b>：通过展示"操控手册"制造完全坦诚的错觉。这利用了一个认知盲区——人们倾向于认为<b>"知道机制 = 免疫机制"</b>，但实际上知道魔术原理不等于不会被魔术欺骗。Wegner (1994) 的<b>讽刺性过程理论 (Ironic Process Theory)</b> 表明：试图不去想某件事反而会更频繁地想到它。同理，被告知"这是操控"反而可能让人更难客观判断。',
+     flow:['展示操控手册','对方认为"我已看透"','放松警惕','新一层操控生效'],
+     tags:[{t:'Metacognitive Manipulation',c:C.green},{t:'Ironic Process Theory',c:C.green},{t:'Paradox of Disclosure',c:C.green}]},
+    {icon:'🎭',title:'道德许可 · 操控即教育',
+     brief:'将操控行为重新包装为"帮助对方成长"，获取道德自洽。',
+     quotes:['不过也算是帮助了人家，比如说提供了信息源，训练一下如何对抗嵌套GAN'],
+     mechanism:'<b>道德许可效应 (Moral Licensing)</b>：Monin & Miller (2001) 证明，人在做了一件"好事"后会给自己发放道德许可证，允许随后的不道德行为。"帮了人家"就是这张许可证。同时这也是<b>合理化 (Rationalization)</b>——将"我在操控别人"重新叙述为"我在教别人识别操控"，从施害者变成教育者。',
+     flow:['操控行为','重新定义为"教育"','获得道德许可','继续操控无负罪感'],
+     tags:[{t:'Moral Licensing',c:C.green},{t:'Rationalization',c:C.green},{t:'Narrative Reframing',c:C.green}]}
+  ]
+},
+{
+  stage:'悖论终局', eng:'Paradox Endgame', color:C.crimson,
+  steps:[
+    {icon:'∞',title:'无限递归 · 说谎者困境',
+     brief:'每一层坦白都是新的操控，形成无法逃出的自指悖论。',
+     quotes:['你会发现我会陷入一个悖论','无限嵌套的GAN，指向的其实是，我不可能是个好人，从使用这一套开始就不是'],
+     mechanism:'<b>说谎者悖论 (Liar\'s Paradox)</b> 的社交版本："我不是好人"——如果这是真话，说明他有自知之明（好的品质）；如果这本身也是操控，则证实了他不是好人。无论哪种解读都无法逃出递归。这是整套系统的<b>逻辑终点</b>，也是唯一一处真正触及本质的自我判断。',
+     flow:[{t:'"我不是好人"',s:'danger'},{t:'如果为真→有自知之明',s:'warn'},{t:'如果为假→证实不是好人',s:'danger'},{t:'无限递归',s:'danger'}],
+     tags:[{t:"Liar's Paradox",c:C.crimson},{t:'Self-reference',c:C.crimson},{t:'Gödelian Loop',c:C.crimson}]},
+    {icon:'🎩',title:'暗线常态化 · 马基雅维利终态',
+     brief:'双面人格成为稳态：表面正人君子，实际运行完全不同的行为逻辑。',
+     quotes:['我走暗线这一套就是了，表面正人君子'],
+     mechanism:'<b>马基雅维利人格 (Machiavellianism)</b> 的终态表现。Paulhus & Williams (2002) 定义的暗黑三角核心特征在此完整呈现：<b>战略性欺骗</b>（多层操控架构）、<b>情感疏离</b>（将人际关系视为可优化的系统）、<b>犬儒世界观</b>（"从使用这一套开始就不是好人"的自我接纳）。表面人格与暗线操作的长期分裂不是偶发行为，而是<b>稳定的人格特质</b>。',
+     flow:['表面正人君子','暗线操控系统','长期并行运行','人格特质固化'],
+     tags:[{t:'Machiavellianism',c:C.crimson},{t:'Dark Triad',c:C.crimson},{t:'Persona Splitting',c:C.crimson}]}
+  ]
+}
+];
+
+// ===== RENDER =====
+const pipe=document.getElementById('pipeline');
+
+DATA.forEach((phase,pi)=>{
+  const stageEl=document.createElement('div');
+  stageEl.className='stage'+(pi===0?' open':'');
+
+  // label
+  const label=document.createElement('div');
+  label.className='stage-label';
+  label.innerHTML=`<div class="stage-dot" style="border-color:${phase.color}"></div><span class="stage-name" style="color:${phase.color}">${phase.stage}</span><span class="stage-eng">${phase.eng}</span>`;
+  label.onclick=()=>{stageEl.classList.toggle('open');};
+  stageEl.appendChild(label);
+
+  // body
+  const body=document.createElement('div');
+  body.className='stage-body';
+  const stepsWrap=document.createElement('div');
+  stepsWrap.className='steps';
+
+  phase.steps.forEach(s=>{
+    const step=document.createElement('div');
+    step.className='step';
+
+    // flow items
+    let flowHtml='<div class="flow-mini">';
+    s.flow.forEach((f,fi)=>{
+      if(fi>0) flowHtml+=`<span class="fm-arrow">→</span>`;
+      if(typeof f==='string') flowHtml+=`<div class="fm-step">${f}</div>`;
+      else{
+        const sc=f.s==='good'?'border-color:'+C.green+';color:'+C.green:f.s==='warn'?'border-color:'+C.orange+';color:'+C.orange:f.s==='danger'?'border-color:'+C.red+';color:'+C.red:'';
+        flowHtml+=`<div class="fm-step" style="${sc}">${f.t}</div>`;
+      }
+    });
+    flowHtml+='</div>';
+
+    let tagsHtml=s.tags.map(t=>`<span class="tag" style="color:${t.c};border-color:${t.c}33">${t.t}</span>`).join('');
+
+    step.innerHTML=`
+      <div class="step-top">
+        <div class="step-icon" style="background:${phase.color}15;color:${phase.color}">${s.icon}</div>
+        <div class="step-main">
+          <div class="step-title">${s.title}</div>
+          <div class="step-brief">${s.brief}</div>
+        </div>
+        <div class="step-chevron">▼</div>
+      </div>
+      <div class="step-detail"><div class="step-detail-inner">
+        <div class="quote">${s.quotes.map(q=>'「'+q+'」').join('<br>')}</div>
+        <div class="mechanism">${s.mechanism}</div>
+        ${flowHtml}
+        <div class="tags">${tagsHtml}</div>
+      </div></div>`;
+
+    step.querySelector('.step-top').onclick=()=>{step.classList.toggle('open');};
+    stepsWrap.appendChild(step);
+  });
+
+  body.appendChild(stepsWrap);
+  stageEl.appendChild(body);
+  pipe.appendChild(stageEl);
+});
+
+// ===== KILL CHAIN =====
+const kcData=[
+  {label:'侦察',ref:'第1-3条',color:C.cyan},
+  {label:'武器化',ref:'第3-4条',color:C.orange},
+  {label:'投递',ref:'真心帮助',color:C.orange},
+  {label:'利用',ref:'第5-8条',color:C.red},
+  {label:'安装',ref:'第10-11条',color:C.purple},
+  {label:'C2 控制',ref:'第17-18条',color:C.green},
+  {label:'目标达成',ref:'第19-20条',color:C.crimson},
+];
+const kcEl=document.getElementById('killchain');
+kcEl.innerHTML=`<h2>攻击链映射 · Kill Chain</h2><p class="kc-sub">参考 Lockheed Martin Cyber Kill Chain® 模型，将社会工程操控映射到网络攻击链</p><div class="kc-bar">${kcData.map(k=>`<div class="kc-cell" style="background:${k.color}10"><div class="kc-label" style="color:${k.color}">${k.label}</div><div class="kc-ref">${k.ref}</div></div>`).join('')}</div>`;
+
+// ===== REFERENCES =====
+const REFS=[
+  {tag:'社会影响力',color:C.orange,title:'Influence: Science and Practice (5th ed.)',authors:'Cialdini, R.B. (2001). Allyn & Bacon.',note:'定义六大影响力武器：互惠、承诺与一致性、社会认同、权威、喜好、稀缺。本流程的信任构建和先予后取策略直接对应互惠原则与承诺一致性原则。',url:'https://en.wikipedia.org/wiki/Influence:_Science_and_Practice'},
+  {tag:'社会影响力',color:C.orange,title:'Social Influence: Compliance and Conformity',authors:'Cialdini, R.B. & Goldstein, N.J. (2004). Annual Review of Psychology, 55, 591-621.',note:'系统综述 Foot-in-the-door 和 Door-in-the-face 技术。本流程的渐进式承诺获取是 Foot-in-the-door 的变体。',url:'https://www2.psych.ubc.ca/~schaller/Psyc591Readings/CialdiniGoldstein2004.pdf'},
+  {tag:'认知心理学',color:C.cyan,title:'The Framing of Decisions and the Psychology of Choice',authors:'Tversky, A. & Kahneman, D. (1981). Science, 211(4481), 453-458.',note:'证明同一信息在不同框架下呈现会导致截然不同的决策。本流程中"价值观铺垫"的本质是框架效应。'},
+  {tag:'认知心理学',color:C.cyan,title:'The Illusion of Transparency',authors:'Gilovich, T., Savitsky, K. & Medvec, V.H. (1998). J. of Personality and Social Psychology, 75(2), 332-346.',note:'人们高估自己内心状态对他人的可见程度。本流程反向利用此效应：通过主动暴露制造透明度错觉。'},
+  {tag:'暗黑人格',color:C.purple,title:'The Dark Triad of Personality: Narcissism, Machiavellianism, and Psychopathy',authors:'Paulhus, D.L. & Williams, K.M. (2002). Journal of Research in Personality, 36(6), 556-563.',note:'首次提出暗黑三角概念。马基雅维利主义的核心特征——战略性欺骗、情感疏离、表面魅力下的操控——与本流程的终态高度吻合。',url:'https://www2.psych.ubc.ca/~dpaulhus/research/SELF-ENHANCEMENT/downloads/ARTICLES/JRP.02.pdf'},
+  {tag:'暗黑人格 · 策略',color:C.purple,title:'A Protean Approach to Social Influence: Dark Triad Personalities and Social Influence Tactics',authors:'Jonason, P.K. & Webster, G.D. (2012). Personality and Individual Differences, 52(4), 521-526.',note:'马基雅维利主义者倾向于使用"软策略"（魅力、理性说服）而非"硬策略"（威胁），解释了为什么本流程选择"帮助"而非"威胁"作为入口。',url:'https://www.sciencedirect.com/science/article/abs/pii/S0191886911005459'},
+  {tag:'道德心理学',color:C.green,title:'Moral Credentials and the Expression of Prejudice',authors:'Monin, B. & Miller, D.T. (2001). J. of Personality and Social Psychology, 81(1), 33-43.',note:'道德许可效应：先做好事后更容易做出不道德选择。本流程中"也算帮了人家"正是道德许可机制。',url:'http://www.ask-force.org/web/Discourse/Monin-Moral-Credentials-Prejudice-2001.pdf'},
+  {tag:'认知控制',color:C.green,title:'Ironic Processes of Mental Control',authors:'Wegner, D.M. (1994). Psychological Review, 101(1), 34-52.',note:'试图压制某个想法反而会更频繁地想到它。被告知"这是操控"反而可能让人更难客观判断——元操控层的理论基础。'},
+  {tag:'归因理论',color:C.purple,title:'Self-serving Biases in the Attribution of Causality: Fact or Fiction?',authors:'Miller, D.T. & Ross, M. (1975). Psychological Bulletin, 82(2), 213-225.',note:'成功归因于内部因素，失败归因于外部因素。本流程中"我只打高端局/我很菜"的双重归因策略。'},
+  {tag:'攻击链模型',color:C.crimson,title:'Intelligence-Driven Computer Network Defense (Cyber Kill Chain)',authors:'Hutchins, E.M., Cloppert, M.J. & Amin, R.M. (2011). Lockheed Martin.',note:'网络攻击的七阶段模型。本分析将其映射到社会工程攻击链，展示人际操控与网络攻击的结构同构性。'},
+];
+const refsEl=document.getElementById('refs');
+refsEl.innerHTML=`<h2>参考文献</h2><div class="ref-list">${REFS.map(r=>`<div class="ref-item"><div class="ref-tag" style="color:${r.color}">${r.tag}</div><h3>${r.title}</h3><div class="ref-authors">${r.authors}</div><div class="ref-note">${r.note}</div>${r.url?`<a href="${r.url}" target="_blank">查看文献 →</a>`:''}</div>`).join('')}</div>`;
+</script>
+</body>
+</html>
