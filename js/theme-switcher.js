@@ -74,6 +74,7 @@
     btn.id = 'theme-switcher-btn';
     btn.type = 'button';
     btn.setAttribute('aria-label', '切换博客主题');
+    btn.setAttribute('title', 'Theme');
     btn.setAttribute('aria-expanded', 'false');
     btn.innerHTML = '<i class="fas fa-palette"></i><span>主题</span>';
 
@@ -211,11 +212,11 @@
     var style = document.createElement('style');
     style.id = 'pe-theme-switcher-css';
     style.textContent = [
-      '#theme-switcher { position: fixed; right: 22px; bottom: 108px; z-index: 100; }',
-      '#theme-switcher-btn { display: inline-flex; align-items: center; gap: 7px; min-width: 42px; height: 38px; padding: 0 12px; border-radius: 8px; background: var(--btn-bg); color: #fff; box-shadow: 0 10px 28px rgba(31, 42, 38, .18); transition: transform .26s cubic-bezier(.16,1,.3,1), background .26s; }',
+      '#theme-switcher { position: fixed; right: var(--pe-control-right, 10px); bottom: calc(var(--pe-theme-bottom, 148px) + env(safe-area-inset-bottom)); z-index: var(--pe-theme-layer, 126); }',
+      '#theme-switcher-btn { display: inline-flex; align-items: center; justify-content: center; gap: 7px; width: 42px; min-width: 42px; height: 38px; padding: 0; border-radius: 8px; background: var(--btn-bg); color: #fff; box-shadow: 0 10px 28px rgba(31, 42, 38, .18); transition: transform .26s cubic-bezier(.16,1,.3,1), background .26s; }',
       '#theme-switcher-btn:hover { transform: translateY(-2px); background: var(--btn-hover-bg); }',
-      '#theme-switcher-btn span { font-size: 13px; line-height: 1; }',
-      '#theme-switcher-panel { position: absolute; right: 0; bottom: 48px; width: 210px; padding: 8px; border: 1px solid rgba(119, 137, 127, .2); border-radius: 10px; background: rgba(255, 255, 255, .92); box-shadow: 0 22px 56px rgba(31, 42, 38, .16); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .24s cubic-bezier(.16,1,.3,1), transform .24s cubic-bezier(.16,1,.3,1); }',
+      '#theme-switcher-btn span { display: none; font-size: 13px; line-height: 1; }',
+      '#theme-switcher-panel { position: absolute; right: 0; bottom: calc(100% + 10px); width: min(210px, calc(100vw - 28px)); padding: 8px; border: 1px solid rgba(119, 137, 127, .2); border-radius: 10px; background: rgba(255, 255, 255, .92); box-shadow: 0 22px 56px rgba(31, 42, 38, .16); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); opacity: 0; transform: translateY(8px); pointer-events: none; transition: opacity .24s cubic-bezier(.16,1,.3,1), transform .24s cubic-bezier(.16,1,.3,1); }',
       '#theme-switcher.open #theme-switcher-panel { opacity: 1; transform: translateY(0); pointer-events: auto; }',
       '.theme-mode-option { width: 100%; display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; color: #26352e; text-align: left; transition: background .22s, color .22s; }',
       '.theme-mode-option:hover, .theme-mode-option.active { background: rgba(79, 125, 102, .12); color: var(--btn-bg); }',
@@ -224,7 +225,8 @@
       '[data-blog-theme=\"ubw\"] #theme-switcher-panel { background: rgba(31, 19, 14, .92); border-color: rgba(255, 190, 119, .22); }',
       '[data-blog-theme=\"ubw\"] .theme-mode-option { color: #ffe8c8; }',
       '[data-blog-theme=\"ubw\"] .theme-mode-option:hover, [data-blog-theme=\"ubw\"] .theme-mode-option.active { background: rgba(217, 87, 28, .22); color: #fff3df; }',
-      '@media screen and (max-width: 768px) { #theme-switcher { right: 14px; bottom: 92px; } #theme-switcher-btn span { display: none; } #theme-switcher-panel { width: 196px; } }',
+      'body:has(#rightside-config-hide.show) #theme-switcher, body:has(#card-toc.open) #theme-switcher { bottom: calc(var(--pe-theme-bottom-expanded, 252px) + env(safe-area-inset-bottom)); }',
+      '@media screen and (max-width: 900px) { #theme-switcher { right: var(--pe-control-right, 10px); bottom: calc(var(--pe-theme-bottom-mobile, 176px) + env(safe-area-inset-bottom)); } body:has(#rightside-config-hide.show) #theme-switcher, body:has(#card-toc.open) #theme-switcher { bottom: calc(var(--pe-theme-bottom-mobile-expanded, 256px) + env(safe-area-inset-bottom)); } #theme-switcher-panel { width: min(196px, calc(100vw - 28px)); } }',
     ].join('\n');
     document.head.appendChild(style);
   }
