@@ -1526,77 +1526,117 @@ button:focus-visible,
   }
 }
 
-/* ===== v1.1 首页模块入口（hub） ===== */
-.pe-hub-grid {
+/* ===== v1.2 首页板块：bento 瓷砖网格 ===== */
+.pe-bento {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 16px;
 }
 
-.pe-hub-card {
+.pe-bento__tile {
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 22px 20px;
-  background: var(--pe-surface);
-  border: 1px solid var(--pe-border);
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  min-height: 172px;
+  padding: 22px;
   border-radius: var(--pe-radius);
-  box-shadow: var(--pe-shadow);
+  border: 1px solid var(--pe-border);
+  overflow: hidden;
+  color: var(--pe-ink);
   transition: transform 0.3s var(--pe-ease), box-shadow 0.3s var(--pe-ease), border-color 0.3s var(--pe-ease);
 }
 
-.pe-hub-card:hover {
+.pe-bento__tile:hover {
   transform: translateY(-4px);
   border-color: var(--pe-border-strong);
   box-shadow: var(--pe-shadow-hover);
 }
 
-.pe-hub-card__icon {
-  flex: none;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 12px;
+.pe-bento__tile--tech {
+  grid-column: span 7;
+  background: linear-gradient(135deg, var(--pe-accent) 0%, var(--pe-accent-strong) 100%);
+  border-color: transparent;
+  color: #fff;
+}
+
+.pe-bento__tile--essay {
+  grid-column: span 5;
   background: var(--pe-accent-soft);
+}
+
+.pe-bento__tile--link {
+  grid-column: span 5;
+  background: var(--pe-bg-soft);
+}
+
+.pe-bento__tile--about {
+  grid-column: span 7;
+  background: var(--pe-surface-muted);
+}
+
+.pe-bento__icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 20px;
+  opacity: 0.9;
+}
+
+.pe-bento__count {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
   color: var(--pe-accent-strong);
-  font-size: 19px;
-}
-
-.pe-hub-card__body {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  min-width: 0;
-}
-
-.pe-hub-card__title {
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--pe-ink);
+  letter-spacing: 0.08em;
 }
 
-.pe-hub-card__desc {
+.pe-bento__tile--tech .pe-bento__count {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.pe-bento__title {
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.pe-bento__desc {
   font-size: 13px;
-  color: var(--pe-muted);
+  opacity: 0.75;
 }
 
-.pe-hub-card__arrow {
-  margin-left: auto;
-  color: var(--pe-muted);
-  font-size: 13px;
-  transition: transform 0.26s var(--pe-ease), color 0.26s var(--pe-ease);
+.pe-bento__arrow {
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.26s var(--pe-ease), transform 0.26s var(--pe-ease);
 }
 
-.pe-hub-card:hover .pe-hub-card__arrow {
-  transform: translateX(4px);
-  color: var(--pe-accent-strong);
+.pe-bento__tile:hover .pe-bento__arrow {
+  opacity: 1;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .pe-bento__tile {
+    grid-column: span 12 !important;
+    min-height: 136px;
+  }
 }
 
 /* 留白：v1.9 小组件版位 */
 .pe-hub-reserved {
-  height: clamp(140px, 24vh, 280px);
+  height: clamp(64px, 9vh, 140px);
 }
 
 /* ===== v1.1 随笔时间轴摘要行 ===== */
