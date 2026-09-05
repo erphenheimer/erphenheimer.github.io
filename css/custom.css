@@ -1650,3 +1650,119 @@ button:focus-visible,
   -webkit-line-clamp: 2;
   overflow: hidden;
 }
+
+/* ===== v1.3 对齐修正：横幅大标题与内容栏对齐 ===== */
+/* 站点设计为标题左对齐（#page-header #site-title text-align:left），
+   但 #page-site-info 全宽铺开导致标题贴视口左缘，而内容栏（.layout max-width:1200px）居中，
+   宽屏上左边缘相差上百像素。将标题盒限制为同一 1200px 并居中，左边缘即与内容栏对齐。
+   窄屏（<1220px）下 max-width 不生效，行为与原来一致。 */
+#page-site-info #site-title {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 无侧栏页（随笔等，html.hide-aside）：主栏收窄为 80% 并居中，
+   标题左缘做同样内缩与面板对齐。≥1220px 时布局锁定 1200px，内缩恒为 120px；
+   900–1220px 区间主栏随视口伸缩，内缩 = 视口的 10% 减去横幅自身 10px 内边距。 */
+@media (min-width: 1220px) {
+  html.hide-aside #page-site-info #site-title {
+    padding-left: 120px;
+  }
+}
+@media (min-width: 900px) and (max-width: 1219px) {
+  html.hide-aside #page-site-info #site-title {
+    padding-left: calc(10vw - 10px);
+  }
+}
+
+/* ===== v1.3 列表页卡片（归档/分类/标签共用） ===== */
+.pe-list-heading {
+  margin: 0 0 18px;
+  color: var(--pe-ink);
+  font-family: Georgia, 'Times New Roman', 'PingFang SC', 'Microsoft YaHei', serif;
+  font-size: 1.4em;
+}
+
+.pe-post-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.pe-post-card {
+  min-width: 0;
+}
+
+.pe-post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  background: var(--pe-surface);
+  border: 1px solid var(--pe-border);
+  border-radius: var(--pe-radius);
+  box-shadow: var(--pe-shadow);
+  transition: transform 0.3s var(--pe-ease), box-shadow 0.3s var(--pe-ease), border-color 0.3s var(--pe-ease);
+}
+
+.pe-post-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--pe-border-strong);
+  box-shadow: var(--pe-shadow-hover);
+}
+
+.pe-post-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--pe-muted);
+}
+
+.pe-post-card__chip {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--pe-accent-soft);
+  color: var(--pe-accent-strong);
+  font-size: 11px;
+}
+
+.pe-post-card__title {
+  color: var(--pe-ink);
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.pe-post-card__title:hover {
+  color: var(--pe-accent-strong);
+}
+
+.pe-post-card__desc {
+  margin: 0;
+  color: var(--pe-muted);
+  font-size: 13px;
+  line-height: 1.7;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.pe-post-card__more {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--pe-accent-strong);
+  font-size: 12px;
+  opacity: 0.7;
+  transition: opacity 0.26s var(--pe-ease), gap 0.26s var(--pe-ease);
+}
+
+.pe-post-card:hover .pe-post-card__more {
+  opacity: 1;
+  gap: 10px;
+}
