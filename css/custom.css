@@ -1362,12 +1362,6 @@ blockquote {
   opacity: 1;
 }
 
-/* Retire old decorative cursor if stale generated files still include it. */
-#pe-cursor-ring,
-#pe-canvas-blobs {
-  display: none !important;
-}
-
 @media screen and (max-width: 900px) {
   .layout {
     max-width: 100%;

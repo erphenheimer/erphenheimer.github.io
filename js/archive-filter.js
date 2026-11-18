@@ -1,5 +1,7 @@
 /**
  * Archive page - Sort & Tag filter
+ * v1.3：列表改为卡片后，筛选逻辑改为对现有卡片 DOM 重排/显隐，
+ * 不再重建标记（卡片结构由 post-card.pug 模板负责）。
  */
 (function () {
   'use strict';
@@ -10,7 +12,7 @@
     var posts = window.__archivePosts;
     if (!toolbar || !tagFilter || !posts) return;
 
-    var container = document.querySelector('#archive .article-sort');
+    var container = document.querySelector('#archive .pe-post-cards');
     if (!container) return;
 
     // Collect all tags
@@ -48,92 +50,32 @@
     });
 
     function render() {
-      var filtered = posts.slice();
+      var cards = Array.prototype.slice.call(container.querySelectorAll('.pe-post-card'));
+      if (!cards.length) return;
 
-      // Filter by tag
-      if (currentTag !== 'all') {
-        filtered = filtered.filter(function (p) {
-          return p.tags && p.tags.indexOf(currentTag) !== -1;
-        });
-      }
+      var visible = 0;
 
-      // Sort
-      if (currentSort === 'time-desc') {
-        filtered.sort(function (a, b) { return b.date - a.date; });
-      } else if (currentSort === 'time-asc') {
-        filtered.sort(function (a, b) { return a.date - b.date; });
-      }
+      // Sort: reorder DOM nodes by card date
+      cards.sort(function (a, b) {
+        return currentSort === 'time-asc'
+          ? a.dataset.date - b.dataset.date
+          : b.dataset.date - a.dataset.date;
+      });
+      cards.forEach(function (card) { container.appendChild(card); });
 
-      // Rebuild DOM
-      container.innerHTML = '';
-      var year = null;
-      var coverEnabled = true; // assume covers enabled
-
-      filtered.forEach(function (article) {
-        var d = new Date(article.date);
-        var tempYear = d.getFullYear().toString();
-
-        if (tempYear !== year) {
-          year = tempYear;
-          var yearEl = document.createElement('div');
-          yearEl.className = 'article-sort-item year';
-          yearEl.textContent = year;
-          container.appendChild(yearEl);
-        }
-
-        var item = document.createElement('div');
-        var noCover = !article.cover ? 'no-article-cover' : '';
-        item.className = 'article-sort-item ' + noCover;
-
-        var html = '';
-        if (article.cover && coverEnabled) {
-          if (article.cover_type === 'img') {
-            html += '<a class="article-sort-item-img" href="/' + article.path + '" title="' + esc(article.title) + '">' +
-              '<img src="' + article.cover + '" alt="' + esc(article.title) + '"></a>';
-          } else if (article.cover) {
-            html += '<a class="article-sort-item-img" href="/' + article.path + '" title="' + esc(article.title) + '">' +
-              '<div style="background:' + article.cover + '"></div></a>';
-          }
-        }
-
-        var dateStr = formatDate(d);
-        html += '<div class="article-sort-item-info">' +
-          '<div class="article-sort-item-time"><i class="far fa-calendar-alt"></i> ' +
-          '<time>' + dateStr + '</time></div>' +
-          '<a class="article-sort-item-title" href="/' + article.path + '" title="' + esc(article.title) + '">' + esc(article.title) + '</a>';
-
-        // Show tags
-        if (article.tags && article.tags.length) {
-          html += '<div class="article-sort-item-tags" style="margin-top:4px;display:flex;flex-wrap:wrap;gap:4px;">';
-          article.tags.forEach(function (t) {
-            html += '<span style="font-size:11px;padding:1px 6px;border-radius:4px;background:var(--btn-bg,#6C63FF);color:#fff;opacity:0.8;">' + esc(t) + '</span>';
-          });
-          html += '</div>';
-        }
-
-        html += '</div>';
-        item.innerHTML = html;
-        container.appendChild(item);
+      // Filter: hide cards without the selected tag
+      cards.forEach(function (card) {
+        var tags = (card.dataset.tags || '').split('|');
+        var show = currentTag === 'all' || tags.indexOf(currentTag) !== -1;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
       });
 
       // Update count
-      var titleEl = document.querySelector('#archive .article-sort-title');
+      var titleEl = document.querySelector('#archive .pe-list-heading');
       if (titleEl) {
-        titleEl.textContent = '文章 - ' + filtered.length;
+        titleEl.textContent = '文章 - ' + visible;
       }
-    }
-
-    function formatDate(d) {
-      var y = d.getFullYear();
-      var m = ('0' + (d.getMonth() + 1)).slice(-2);
-      var day = ('0' + d.getDate()).slice(-2);
-      return y + '-' + m + '-' + day;
-    }
-
-    function esc(s) {
-      var el = document.createElement('span');
-      el.textContent = s;
-      return el.innerHTML;
     }
   }
 
